@@ -32,11 +32,12 @@ def main(input_link):
 	page_handle = None
 	while not page_got:
 		try:
-			page_handle = urllib.request.urlopen(input_link)
+			page_handle = urllib.request.Request(input_link)
+			page_handle.add_header("Cookie", "over18=1")
 			page_got = True
 		except:
 			time.sleep(0.1)
-	page_content = page_handle.read().decode()
+	page_content = urllib.request.urlopen(page_handle).read().decode()
 	# Find the relevant information we want.
 	page_link = re.search(f"{MATCH_LINK_START}(.*?){MATCH_LINK_END}", page_content).group(1)
 	page_title = re.search(f"{MATCH_TITLE_START}(.*?){MATCH_TITLE_END}", page_content).group(1)
