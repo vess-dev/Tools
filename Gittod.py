@@ -18,7 +18,13 @@ COM_GIT_HISTORY = """git log --graph --pretty=format:'%C(auto)%H%d (%ci) %s'"""
 # Git command for getting a commit's date.
 COM_GIT_DATE = """git show --no-patch --no-notes --pretty='%cd'"""
 # Git command for changing dates.
-COM_GIT_CHANGE = """FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch --env-filter \ 'if [ $GIT_COMMIT = $1 ] then export GIT_AUTHOR_DATE="$2" export GIT_COMMITTER_DATE="$2" fi'"""
+COM_GIT_CHANGE = """FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --env-filter \
+	'if [ $GIT_COMMIT = $1 ]
+	then
+		export GIT_AUTHOR_DATE="$2"
+		export GIT_COMMITTER_DATE="$2"
+	fi'
+"""
 
 #============================================================================================================================================
 # Sanitize the input command.
