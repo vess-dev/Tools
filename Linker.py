@@ -32,8 +32,10 @@ def main(input_link):
 	page_handle = None
 	while not page_got:
 		try:
-			page_handle = urllib.request.Request(input_link)
-			page_handle.add_header("Cookie", "over18=1")
+			page_handle = urllib.request.Request(input_link, headers={
+				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+				"Cookie": "over18=1"
+			})
 			page_got = True
 		except:
 			time.sleep(0.1)
